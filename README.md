@@ -7,6 +7,7 @@ Contents:
 3. python code in Jypiter notebook
 4. Python report - Jypiter with outputs
 5. SQL codes
+6. Compressed json input file extracted from BigQuery
 
 Tools:
 
