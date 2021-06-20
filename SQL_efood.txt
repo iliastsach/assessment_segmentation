@@ -1,0 +1,39 @@
+##########################
+### Ilias Tsachtsarlis ###
+##########################
+
+##########
+### Q1 ###
+##########
+
+SELECT city , count(*) as Breakfast_Orders
+FROM `bi-2019-test.ad_hoc.orders_jan2021` 
+WHERE cuisine_parent='Breakfast' AND city IN (SELECT city FROM `bi-2019-test.ad_hoc.orders_jan2021` GROUP BY city HAVING count(*) > 500)
+GROUP BY city
+order by Breakfast_Orders DESC
+LIMIT 10;
+
+
+##########
+### Q2 ###
+##########
+
+SELECT city , count( DISTINCT (user_id) ) as Breakfast_Users
+FROM `bi-2019-test.ad_hoc.orders_jan2021` 
+WHERE cuisine_parent='Breakfast' AND city IN (SELECT city FROM `bi-2019-test.ad_hoc.orders_jan2021` GROUP BY city HAVING count(*) > 500)
+GROUP BY city
+order by Breakfast_Users DESC
+LIMIT 10;
+
+
+##########
+### Q3 ###
+##########
+
+SELECT city, round(avg(basket),2)  as average_basket, COUNT(*) AS TOTAL_ORDERS
+FROM `bi-2019-test.ad_hoc.orders_jan2021` 
+WHERE user_id IN (SELECT DISTINCT (user_id) FROM `bi-2019-test.ad_hoc.orders_jan2021` WHERE cuisine_parent='Breakfast') 
+AND city IN (SELECT city FROM `bi-2019-test.ad_hoc.orders_jan2021` GROUP BY city HAVING count(*) > 500)
+GROUP BY city
+order by average_basket DESC
+LIMIT 10;
